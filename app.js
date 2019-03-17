@@ -1,37 +1,22 @@
-const http = require("http");
-const { inspect } = require("util");
 const qs = require("querystring");
 
-const server = http.createServer((req, res) => {
+function serverHandler(req, res) {
   let method = req.method;
-  let [path, querystring] = req.url.split("?");
-  let query = qs.parse(querystring);
-
-  let result = {
-    method,
-    path,
-    query
-  };
+  let url = req.url;
+  let [path, queryString] = req.url.split("?");
+  let query = qs.parse(queryString);
 
   res.setHeader("Content-type", "application/json");
 
-  if (method === "GET") {
-    res.end(JSON.stringify(result));
-    return;
-  }
+  let result = {
+    method,
+    url,
+    path,
+    queryString,
+    query
+  };
 
-  if (method === "POST") {
-    let postData = "";
-    req.on("data", chunk => {
-      postData += chunk.toString();
-    });
-    req.on("end", () => {
-      result.postData = postData;
-      res.end(JSON.stringify(result));
-    });
-  }
-});
+  res.end(JSON.stringify(result));
+}
 
-server.listen(3000, function() {
-  console.log("start at port 3000");
-});
+module.exports = serverHandler;
