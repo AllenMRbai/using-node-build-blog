@@ -26,7 +26,31 @@ function getDetail(id) {
     createTime: 1552842253718
   };
 }
+
+function newBlog(blogData = {}) {
+  console.log(blogData);
+  return {
+    id: 3
+  };
+}
+
+function updateBlog(id, blogData = {}) {
+  console.log(id, blogData);
+  return {
+    id: 3
+  };
+}
+
+function delBlog(id) {
+  return {
+    id: 3
+  };
+}
+
 module.exports = {
   getBlogList,
-  getDetail
+  getDetail,
+  newBlog,
+  updateBlog,
+  delBlog
 };
