@@ -1,17 +1,33 @@
 const http = require("http");
 const { inspect } = require("util");
-const querystring = require("query-string");
+const qs = require("querystring");
 
 const server = http.createServer((req, res) => {
-  if (req.method === "POST") {
-    console.log("content-type: ", req.headers["content-type"]);
+  let method = req.method;
+  let [path, querystring] = req.url.split("?");
+  let query = qs.parse(querystring);
+
+  let result = {
+    method,
+    path,
+    query
+  };
+
+  res.setHeader("Content-type", "application/json");
+
+  if (method === "GET") {
+    res.end(JSON.stringify(result));
+    return;
+  }
+
+  if (method === "POST") {
     let postData = "";
     req.on("data", chunk => {
       postData += chunk.toString();
     });
     req.on("end", () => {
-      console.log(postData);
-      res.end("hello world");
+      result.postData = postData;
+      res.end(JSON.stringify(result));
     });
   }
 });
