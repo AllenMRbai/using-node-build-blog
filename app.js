@@ -3,10 +3,17 @@ const { inspect } = require("util");
 const querystring = require("query-string");
 
 const server = http.createServer((req, res) => {
-  console.log(req.method + " " + req.url);
-  let parsedUrl = querystring.parseUrl(req.url);
-  console.log(parsedUrl);
-  res.end(JSON.stringify(parsedUrl.query));
+  if (req.method === "POST") {
+    console.log("content-type: ", req.headers["content-type"]);
+    let postData = "";
+    req.on("data", chunk => {
+      postData += chunk.toString();
+    });
+    req.on("end", () => {
+      console.log(postData);
+      res.end("hello world");
+    });
+  }
 });
 
 server.listen(3000, function() {
