@@ -12,14 +12,12 @@ let handleBlogRouter = (req, res) => {
 
   if (method === "GET" && req.path === "/api/blog/detail") {
     let { id } = req.query;
-    let result = getBlogList(id);
+    let result = getDetail(id);
     return new SuccessModel(result);
   }
 
   if (method === "POST" && req.path === "/api/blog/new") {
-    return {
-      msg: "新建博客"
-    };
+    return new SuccessModel(req.body);
   }
 
   if (method === "POST" && req.path === "/api/blog/new") {
