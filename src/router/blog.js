@@ -12,34 +12,43 @@ let handleBlogRouter = (req, res) => {
 
   if (method === "GET" && req.path === "/api/blog/list") {
     let { author, keyword } = req.query;
-    let result = getBlogList(author, keyword);
-    return new SuccessModel(result);
+    return getBlogList(author, keyword).then(data => new SuccessModel(data));
   }
 
   if (method === "GET" && req.path === "/api/blog/detail") {
     let { id } = req.query;
-    let result = getDetail(id);
-    return new SuccessModel(result);
+    return getDetail(id).then(data => new SuccessModel(data));
   }
 
   if (method === "POST" && req.path === "/api/blog/new") {
-    let { id } = req.query;
-    let result = newBlog(req.body);
-    return new SuccessModel(result);
+    req.body.author = "zhangsan"; //TODO 待开发登录时再改成真是数据
+    let { title, content, author } = req.body;
+    if (!title || !content || !author)
+      return Promise.resolve(new ErrorModel("必填项不能为空"));
+    return newBlog({ title, content, author }).then(data => {
+      if (data.affectedRows == 1)
+        return new SuccessModel({ id: data.insertId });
+      else return new ErrorModel("创建失败");
+    });
   }
 
   if (method === "POST" && req.path === "/api/blog/update") {
-    let { id } = req.query;
-    let result = updateBlog(id, req.body);
-    if (result) return new SuccessModel();
-    else return new ErrorModel("更新博客失败");
+    let { title, content, author, id } = req.body;
+    if (!id) return Promise.resolve(new ErrorModel("id不能为空"));
+    return updateBlog({ title, content, author, id }).then(data => {
+      console.log(data);
+      if (data.affectedRows == 1) return new SuccessModel("更新成功");
+      else return new ErrorModel("更新博客失败");
+    });
   }
 
   if (method === "POST" && req.path === "/api/blog/del") {
-    let { id } = req.query;
-    let result = delBlog(id);
-    if (result) return new SuccessModel();
-    else return new ErrorModel("删除博客失败");
+    req.body.author = "zhangsan"; //TODO 待开发登录时再改成真是数据
+    let { id, author } = req.body;
+    return delBlog(id, author).then(data => {
+      if (data.affectedRows == 1) return new SuccessModel("删除成功");
+      else return new ErrorModel("删除失败");
+    });
   }
 };
 

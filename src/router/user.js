@@ -6,9 +6,12 @@ let handleUserRouter = (req, res) => {
 
   if (method === "POST" && req.path === "/api/user/login") {
     let { username, password } = req.body;
-    let result = loginCheck(username, password);
-    if (result) return new SuccessModel();
-    else return new ErrorModel("用户名或密码错误");
+    if (!username || !password)
+      return Promise.resolve(new ErrorModel("必填项不能为空"));
+    return loginCheck(username, password).then(data => {
+      if (data.username) return new SuccessModel();
+      else return new ErrorModel("用户名或密码错误");
+    });
   }
 };
 

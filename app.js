@@ -37,13 +37,17 @@ function serverHandler(req, res) {
 
     result = handleBlogRouter(req, res);
     if (result) {
-      res.end(JSON.stringify(result));
+      result.then(data => {
+        res.end(JSON.stringify(data));
+      });
       return;
     }
 
     result = handleUserRouter(req, res);
     if (result) {
-      res.end(JSON.stringify(result));
+      result.then(data => {
+        res.end(JSON.stringify(data));
+      });
       return;
     }
 
