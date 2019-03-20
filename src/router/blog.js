@@ -8,7 +8,7 @@ let {
 let { SuccessModel, ErrorModel } = require("../model/resModel");
 
 // 验证是否登录
-function loginCheckResult(req) {
+function loginCheck(req) {
   if (!req.session.username) return new ErrorModel("尚未登录");
 }
 
@@ -26,7 +26,7 @@ let handleBlogRouter = (req, res) => {
   }
 
   if (method === "POST" && req.path === "/api/blog/new") {
-    let loginResult = loginCheckResult(req);
+    let loginResult = loginCheck(req);
     if (loginResult) return loginResult;
 
     req.body.author = req.session.username;
@@ -41,7 +41,7 @@ let handleBlogRouter = (req, res) => {
   }
 
   if (method === "POST" && req.path === "/api/blog/update") {
-    let loginResult = loginCheckResult(req);
+    let loginResult = loginCheck(req);
     if (loginResult) return loginResult;
 
     let { title, content, author, id } = req.body;
@@ -54,7 +54,7 @@ let handleBlogRouter = (req, res) => {
   }
 
   if (method === "POST" && req.path === "/api/blog/del") {
-    let loginResult = loginCheckResult(req);
+    let loginResult = loginCheck(req);
     if (loginResult) return loginResult;
 
     req.body.author = req.session.username;
