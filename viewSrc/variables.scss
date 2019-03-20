@@ -1,0 +1,7 @@
+$primary: #304ffe;
+$Secondary: #1a237e;
+
+@mixin flex {
+  display: flex;
+  align-items: center;
+}

@@ -3,7 +3,7 @@ const env = process.env.NODE_ENV;
 let MYSQL_CONF;
 let REDIS_CONF;
 
-if (env === "dev") {
+if (env === "development") {
   // mysql
   MYSQL_CONF = {
     host: "localhost",
@@ -19,7 +19,7 @@ if (env === "dev") {
   };
 }
 
-if (env === "development") {
+if (env === "production") {
   MYSQL_CONF = {
     host: "localhost",
     port: 3306,

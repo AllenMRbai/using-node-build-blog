@@ -1,0 +1,19 @@
+@import "./variables.scss";
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.flex--center {
+  @include flex;
+  justify-content: center;
+}
+
+.color-box {
+  background: linear-gradient(#e98a00, #f5aa2f);
+}
