@@ -30,6 +30,17 @@ let webpackConfig = {
       {
         test: /\.vue$/,
         use: ["vue-loader"]
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: "file-loader",
+        options: {
+          name: "fonts/[name].[ext]"
+        }
+      },
+      {
+        test: /\.html$/,
+        use: "html-loader"
       }
     ]
   },
@@ -60,10 +71,16 @@ if (isDev) {
   webpackConfig.devtool = "cheap-eval-source-map";
 
   // 使用style-loader加载样式
-  webpackConfig.module.rules.push({
-    test: /\.scss$/,
-    use: ["style-loader", "css-loader", "sass-loader"]
-  });
+  webpackConfig.module.rules.push(
+    {
+      test: /\.scss$/,
+      use: ["style-loader", "css-loader", "sass-loader"]
+    },
+    {
+      test: /\.css$/,
+      use: ["style-loader", "css-loader"]
+    }
+  );
 
   // 使用file-loader加载图片
   webpackConfig.module.rules.push({
@@ -90,15 +107,21 @@ if (isDev) {
   };
 
   // 使用mini-css-extract-plugin抽取样式
-  webpackConfig.module.rules.push({
-    test: /\.scss$/,
-    use: [
-      MiniCssExtractPlugin.loader,
-      "css-loader",
-      "postcss-loader",
-      "sass-loader"
-    ]
-  });
+  webpackConfig.module.rules.push(
+    {
+      test: /\.scss$/,
+      use: [
+        MiniCssExtractPlugin.loader,
+        "css-loader",
+        "postcss-loader",
+        "sass-loader"
+      ]
+    },
+    {
+      test: /\.css$/,
+      use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"]
+    }
+  );
   webpackConfig.plugins.push(
     new MiniCssExtractPlugin({
       filename: "[name].[contentHash].css"

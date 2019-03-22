@@ -1,0 +1,91 @@
+<template>
+  <div>
+    <HeadBar class="pa-2 px-6">
+      <div slot="left" class="flex-start">
+        <h1 class="title fc-white">UI 文档</h1>
+      </div>
+      <div slot="right">
+        <router-link class="fc-link-white" :to="{name:'login'}" style="vertical-align:middle">
+          <Icon name="logout"/>
+          <span style="ml-1">登出</span>
+        </router-link>
+      </div>
+    </HeadBar>
+    <SideBar>
+      <MenuBox class="pt-4">
+        <template v-for="menu of menus">
+          <MenuTitle :icon="menu.icon" :title="menu.title" :key="menu.title"/>
+          <MenuItem
+            v-for="item of menu.children"
+            :key="item.title"
+            :title="item.title"
+            :icon="item.icon"
+            :to="item.to"
+            :active="nowPath===item.to"
+          />
+        </template>
+      </MenuBox>
+    </SideBar>
+    <Container class="pa-4">
+      <router-view/>
+    </Container>
+  </div>
+</template>
+
+<script>
+import HeadBar from "@/components/layout/HeadBar";
+import SideBar from "@/components/layout/SideBar";
+import Container from "@/components/layout/Container";
+import Icon from "@/components/Icon";
+import { MenuBox, MenuItem, MenuTitle } from "@/components/menu";
+
+export default {
+  name: "doc",
+  components: {
+    HeadBar,
+    SideBar,
+    Container,
+    Icon,
+    MenuBox,
+    MenuItem,
+    MenuTitle
+  },
+  data() {
+    return {
+      menus: [
+        {
+          title: "Home",
+          children: [{ title: "Introduction", to: "/doc/Home" }]
+        },
+        {
+          title: "CSS & SASS Variables",
+          children: [
+            { title: "Spacing", to: "/doc/spacing" },
+            { title: "CSS Helpers", to: "/doc/cssHelper" },
+            { title: "SASS Variables", to: "/doc/sassVar" }
+          ]
+        },
+        {
+          title: "Components",
+          children: [
+            { title: "Layout", to: "/doc/layout" },
+            { title: "Menu", to: "/doc/Menu" },
+            { title: "Icon", to: "/doc/Icon" },
+            { title: "Form Components", to: "/doc/FormComp" },
+            { title: "Dialog", to: "/doc/Dialog" },
+            { title: "Other Components", to: "/doc/OtherComp" }
+          ]
+        }
+      ]
+    };
+  },
+  computed: {
+    nowPath() {
+      return this.$route.path;
+    }
+  }
+};
+</script>
+
+<style lang="scss">
+</style>
