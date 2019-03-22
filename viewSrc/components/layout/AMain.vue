@@ -1,16 +1,16 @@
 <template>
-  <main class="container">
+  <main class="a-main">
     <slot></slot>
   </main>
 </template>
 <script>
 export default {
-  name: "container"
+  name: "a-main"
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "./var.scss";
-.container {
+.a-main {
   margin-left: $sidebar_w;
 }
 </style>

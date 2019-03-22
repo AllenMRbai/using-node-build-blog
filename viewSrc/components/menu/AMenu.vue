@@ -5,9 +5,8 @@
 </template>
 <script>
 export default {
-  name: "menu-box"
+  name: "a-menu"
 };
 </script>
-<style lang="scss" scoped>
-</style>
+
 

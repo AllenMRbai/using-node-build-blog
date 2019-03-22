@@ -1,18 +1,19 @@
 <template>
-  <div class="card border">
+  <div class="a-card border">
     <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: "card"
+  name: "a-card"
 };
 </script>
 
 <style lang="scss" scoped>
-.card {
+.a-card {
   width: 90%;
+  background-color: #fff;
   border-radius: 4px;
 }
 </style>

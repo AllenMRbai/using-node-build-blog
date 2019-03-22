@@ -1,16 +1,16 @@
 <template>
-  <aside class="side-bar">
+  <aside class="a-aside">
     <slot></slot>
   </aside>
 </template>
 <script>
 export default {
-  name: "sidebar"
+  name: "a-aside"
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "./var.scss";
-.side-bar {
+.a-aside {
   width: $sidebar_w;
   box-sizing: border-box;
   position: fixed;
@@ -20,7 +20,7 @@ export default {
   background-color: rgb(241, 241, 241);
   border-right: 1px solid $border;
 }
-.side-bar::before {
+.a-aside::before {
   content: "";
   height: $header_h;
   display: block;

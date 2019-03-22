@@ -1,21 +1,21 @@
 <template>
   <div>
-    <HeadBar class="pa-2 px-6">
+    <AHeader class="pa-2 px-6">
       <div slot="left" class="flex-start">
         <h1 class="title fc-white">UI 文档</h1>
       </div>
       <div slot="right">
         <router-link class="fc-link-white" :to="{name:'login'}" style="vertical-align:middle">
-          <Icon name="logout"/>
+          <AIcon name="logout"/>
           <span style="ml-1">登出</span>
         </router-link>
       </div>
-    </HeadBar>
-    <SideBar>
-      <MenuBox class="pt-4">
+    </AHeader>
+    <AAside>
+      <AMenu class="pt-4">
         <template v-for="menu of menus">
-          <MenuTitle :icon="menu.icon" :title="menu.title" :key="menu.title"/>
-          <MenuItem
+          <AMenuTitle :icon="menu.icon" :title="menu.title" :key="menu.title"/>
+          <AMenuItem
             v-for="item of menu.children"
             :key="item.title"
             :title="item.title"
@@ -24,31 +24,29 @@
             :active="nowPath===item.to"
           />
         </template>
-      </MenuBox>
-    </SideBar>
-    <Container class="pa-4">
+      </AMenu>
+    </AAside>
+    <AMain class="pa-4">
       <router-view/>
-    </Container>
+    </AMain>
   </div>
 </template>
 
 <script>
-import HeadBar from "@/components/layout/HeadBar";
-import SideBar from "@/components/layout/SideBar";
-import Container from "@/components/layout/Container";
-import Icon from "@/components/Icon";
-import { MenuBox, MenuItem, MenuTitle } from "@/components/menu";
+import { AAside, AMain, AHeader } from "@/components/layout";
+import { AMenu, AMenuItem, AMenuTitle } from "@/components/menu";
+import AIcon from "@/components/AIcon";
 
 export default {
   name: "doc",
   components: {
-    HeadBar,
-    SideBar,
-    Container,
-    Icon,
-    MenuBox,
-    MenuItem,
-    MenuTitle
+    AAside,
+    AMain,
+    AHeader,
+    AIcon,
+    AMenu,
+    AMenuItem,
+    AMenuTitle
   },
   data() {
     return {

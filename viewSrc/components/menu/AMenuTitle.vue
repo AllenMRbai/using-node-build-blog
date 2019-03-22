@@ -1,15 +1,15 @@
 <template>
-  <dd class="menu-title">
-    <Icon class="menu-icon" :name="icon" v-if="icon"/>
+  <dd class="a-menu-title">
+    <AIcon class="a-menu-icon" :name="icon" v-if="icon"/>
     <span class="subtitle fc-primary-dark">{{title}}</span>
   </dd>
 </template>
 <script>
-import Icon from "@/components/Icon";
+import AIcon from "@/components/AIcon";
 export default {
-  name: "menu-title",
+  name: "a-menu-title",
   components: {
-    Icon
+    AIcon
   },
   props: {
     icon: {
@@ -21,20 +21,21 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "./var.scss";
-.menu-title {
+.a-menu-title {
   color: $primary-dark;
   line-height: 40px;
   position: relative;
+  .a-menu-icon {
+    position: absolute;
+    left: 0.35 * $indent;
+    font-size: 16px;
+    top: 1px;
+  }
 }
-.menu-icon {
-  position: absolute;
-  left: 0.35 * $indent;
-  font-size: 16px;
-  top: 1px;
-}
-.menu-title::before {
+
+.a-menu-title::before {
   display: inline-block;
   background-color: red;
   content: "";

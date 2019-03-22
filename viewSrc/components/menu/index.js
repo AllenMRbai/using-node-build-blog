@@ -1,3 +1,3 @@
-export { default as MenuBox } from "./MenuBox";
-export { default as MenuItem } from "./MenuItem";
-export { default as MenuTitle } from "./MenuTitle";
+export { default as AMenu } from "./AMenu";
+export { default as AMenuItem } from "./AMenuItem";
+export { default as AMenuTitle } from "./AMenuTitle";

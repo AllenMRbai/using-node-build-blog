@@ -4,11 +4,10 @@
 
 <script>
 export default {
-  name: "icon",
+  name: "a-icon",
   props: {
     name: {
-      type: String,
-      default: "smile"
+      type: String
     }
   }
 };
