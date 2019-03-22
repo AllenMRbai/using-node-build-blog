@@ -1,7 +1,36 @@
-$primary: #304ffe;
-$Secondary: #1a237e;
+// 主题色
+$primary: #1976d2;
+$primary-light: #63a4ff;
+$primary-dark: #004ba0;
+$secondary: #303f9f;
+$secondary-light: #666ad1;
+$secondary-dark: #001970;
+$success: #67c23a;
+$warning: #e6a23c;
+$danger: #f56c6c;
+$info: #909399;
+
+// 字体颜色
+$title-text: #303133;
+$regular-text: #606266;
+$caption-text: #909399;
+$placeholder-text: #c0c4cc;
+
+// 背景色
+$bg: #e7e7e7;
+
+// 边框颜色
+$border: #cbcccf;
 
 @mixin flex {
   display: flex;
   align-items: center;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
 }
