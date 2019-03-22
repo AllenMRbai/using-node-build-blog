@@ -1,19 +1,364 @@
 @import "./variables.scss";
 
+/**********************************
+  reset
+**********************************/
 * {
   padding: 0;
   margin: 0;
+}
+
+body {
+  font-size: 14px;
+  color: $regular-text;
+  background-color: $bg;
+}
+
+a {
+  text-decoration: none;
 }
 
 li {
   list-style: none;
 }
 
-.flex--center {
-  @include flex;
-  justify-content: center;
+hr {
+  margin: 10px 0;
 }
 
-.color-box {
-  background: linear-gradient(#e98a00, #f5aa2f);
+.paper {
+  max-width: 780px;
+  box-sizing: border-box;
+  padding: 40px 20px;
+  background-color: #fff;
+  min-height: 500px;
+}
+
+p {
+  padding: 10px 0;
+  line-height: 1.5;
+}
+
+code {
+  background-color: #f8f8f8;
+  color: $primary-dark;
+  padding: 2px 3px;
+  border-radius: 2px;
+}
+
+code.code-block {
+  color: #333;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 8px;
+}
+code.code-block .comment {
+  color: #998;
+}
+/**********************************
+  通用样式
+**********************************/
+
+// 字体
+.headline {
+  font-size: 24px !important;
+  color: $title-text;
+} // 大标题
+.title {
+  font-size: 20px !important;
+  color: $title-text;
+} // 标题
+.subtitle {
+  font-size: 16px !important;
+  color: $title-text;
+} // 小标题
+.body-1 {
+  font-size: 14px !important;
+  color: $regular-text;
+} // 常规字体
+.body-2 {
+  font-size: 14px !important;
+  font-weight: bold !important;
+  color: $regular-text;
+} // 常规字体加粗
+.caption {
+  font-size: 12px !important;
+  color: $caption-text;
+} // 小字体
+
+//加粗
+.font-bold {
+  font-weight: bold !important;
+}
+//斜体
+.font-italic {
+  font-style: italic !important;
+}
+
+//文本居中
+.text-center {
+  text-align: center;
+}
+
+//单行 文本截断 截断部分为省略号
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+//2行 文本截断 截断部分为省略号
+.text-truncate-2 {
+  -webkit-line-clamp: 2;
+  @include truncate;
+}
+
+//3行 文本截断 截断部分为省略号
+.text-truncate-3 {
+  -webkit-line-clamp: 3;
+  @include truncate;
+}
+
+//4行 文本截断 截断部分为省略号
+.text-truncate-4 {
+  -webkit-line-clamp: 4;
+  @include truncate;
+}
+
+// 布局
+.flex-start {
+  justify-content: flex-start;
+  @include flex;
+}
+.flex-end {
+  justify-content: flex-end;
+  @include flex;
+}
+.flex-center {
+  justify-content: center;
+  @include flex;
+}
+.flex-between {
+  justify-content: space-between;
+  @include flex;
+}
+.flex-around {
+  justify-content: space-around;
+  @include flex;
+}
+
+// 浮动
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+
+/*
+《Spacing》
+参考vuetify=>Application layout=>Spacing
+与vuetify的spacing用法类似 但我们的范围是0到12
+
+用法 [type][direction]-[degree]
+type: p(padding) m(margin)
+direction:a(all) x(X轴) y(Y轴) t(top) r(right) b(bottom) l(left)
+degree:0-12
+
+0   1    2    3     4     5     6     7     8     9     10    11    12
+0  4px  8px  12px  16px  20px  24px  28px  32px  36px  40px  44px  48px
+
+例子1 .px-2  对应 padding-left:8px; padding-right:8px;
+例子2 .ml-5  对应 margin-left:20px;
+*/
+@each $dir in a, x, y, t, r, b, l {
+  @for $size from 0 through 12 {
+    $temp: 4px * $size;
+    .p#{$dir}-#{$size} {
+      @if $dir == a {
+        padding: $temp !important;
+      } @else if $dir == x {
+        padding-left: $temp !important;
+        padding-right: $temp !important;
+      } @else if $dir == y {
+        padding-top: $temp !important;
+        padding-bottom: $temp !important;
+      } @else if $dir == t {
+        padding-top: $temp !important;
+      } @else if $dir == r {
+        padding-right: $temp !important;
+      } @else if $dir == b {
+        padding-bottom: $temp !important;
+      } @else if $dir == l {
+        padding-left: $temp !important;
+      }
+    }
+  }
+}
+
+@each $dir in a, x, y, t, r, b, l {
+  @for $size from 0 through 12 {
+    $temp: 4px * $size;
+    .m#{$dir}-#{$size} {
+      @if $dir == a {
+        margin: $temp !important;
+      } @else if $dir == x {
+        margin-left: $temp !important;
+        margin-right: $temp !important;
+      } @else if $dir == y {
+        margin-top: $temp !important;
+        margin-bottom: $temp !important;
+      } @else if $dir == t {
+        margin-top: $temp !important;
+      } @else if $dir == r {
+        margin-right: $temp !important;
+      } @else if $dir == b {
+        margin-bottom: $temp !important;
+      } @else if $dir == l {
+        margin-left: $temp !important;
+      }
+    }
+  }
+}
+
+// 投影
+.shadow-1 {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.shadow-1-bottom {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+.shadow-2 {
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.3);
+}
+.shadow-2-bottom {
+  box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.3);
+}
+.shadow-3 {
+  box-shadow: 10px 10px 8px rgba(0, 0, 0, 0.3);
+}
+.shadow-3-bottom {
+  box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.3);
+}
+
+// 边框
+.border {
+  border: 1px solid $border;
+}
+
+// 背景色
+.bc-primary {
+  background-color: $primary !important;
+} // 主题色
+.bc-primary-light {
+  background-color: $primary-light !important;
+}
+.bc-primary-dark {
+  background-color: $primary-dark !important;
+}
+.bc-secondary {
+  background-color: $secondary !important;
+} // 次主题色
+.bc-secondary-light {
+  background-color: $secondary-light !important;
+}
+.bc-secondary-dark {
+  background-color: $secondary-dark !important;
+}
+.bc-success {
+  background-color: $success !important;
+} // 成功
+.bc-warning {
+  background-color: $warning !important;
+} // 提示
+.bc-danger {
+  background-color: $danger !important;
+} // 警告
+.bc-info {
+  background-color: $info !important;
+} // 消息
+.bc-white {
+  background-color: #fff !important;
+}
+
+// 字体颜色
+.fc-primary {
+  color: $primary !important;
+} // 主题色
+.fc-primary-light {
+  color: $primary-light !important;
+}
+.fc-primary-dark {
+  color: $primary-dark !important;
+}
+.fc-secondary {
+  color: $secondary !important;
+} // 次主题色
+.fc-secondary-light {
+  color: $secondary-light !important;
+}
+.fc-secondary-dark {
+  color: $secondary-dark !important;
+}
+.fc-success {
+  color: $success !important;
+} // 成功
+.fc-warning {
+  color: $warning !important;
+} // 提示
+.fc-danger {
+  color: $danger !important;
+} // 警告
+.bc-info {
+  color: $info !important;
+} // 消息
+.fc-white {
+  color: #fff !important;
+}
+
+.fc-title {
+  color: $title-text !important;
+}
+.fc-regular {
+  color: $regular-text !important;
+}
+.fc-caption {
+  color: $caption-text !important;
+}
+.fc-placeholder {
+  color: $placeholder-text !important;
+}
+
+// 链接 蓝色
+.fc-link {
+  color: #03a9f4;
+  cursor: pointer;
+}
+.fc-link:hover {
+  filter: brightness(115%);
+}
+// 链接 黑色
+.fc-link-black {
+  color: $title-text;
+  cursor: pointer;
+}
+.fc-link-black:hover {
+  filter: brightness(200%);
+}
+// 链接 白色
+.fc-link-white {
+  color: #fff;
+  cursor: pointer;
+}
+.fc-link-black:hover {
+  filter: brightness(200%);
 }
