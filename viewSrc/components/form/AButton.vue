@@ -1,5 +1,6 @@
 <template>
   <button
+    @click="clickHandler"
     type="button"
     class="a-button--transparent a-button"
     :class="[`a-button-${type}`,`a-button-${size}`]"
@@ -24,6 +25,11 @@ export default {
     size: {
       type: String,
       default: "md" // sm md lg
+    }
+  },
+  methods: {
+    clickHandler() {
+      this.$emit("click");
     }
   }
 };
@@ -76,33 +82,43 @@ export default {
 
 .a-button-primary {
   background-color: $primary;
+  border: 1px solid $primary;
 }
 .a-button-primary-dark {
   background-color: $primary-dark;
+  border: 1px solid $primary-dark;
 }
 .a-button-primary-light {
   background-color: $primary-light;
+  border: 1px solid $primary-light;
 }
 .a-button-secondary {
   background-color: $secondary;
+  border: 1px solid $secondary;
 }
 .a-button-secondary-dark {
   background-color: $secondary-dark;
+  border: 1px solid $secondary-dark;
 }
 .a-button-secondary-light {
   background-color: $secondary-light;
+  border: 1px solid $secondary-light;
 }
 .a-button-success {
   background-color: $success;
+  border: 1px solid $success;
 }
 .a-button-warning {
   background-color: $warning;
+  border: 1px solid $warning;
 }
 .a-button-danger {
   background-color: $danger;
+  border: 1px solid $danger;
 }
 .a-button-info {
   background-color: $info;
+  border: 1px solid $info;
 }
 .a-button-plain {
   background-color: #fff;
