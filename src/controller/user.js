@@ -1,16 +1,17 @@
 const { exec } = require("../db/mysql");
+const { escape } = require("mysql");
 
 function login(username, password) {
-  let sql = `
-    select username,realname from users 
-    where username='${username}' and password='${password}'
-  `;
+  username = escape(username);
+  password = escape(password);
+
+  let sql = `select username,realname from users where username=${username} and password=${password}`;
   return exec(sql).then(rows => rows[0] || {});
 }
 
 function check(username) {
   let sql = `
-    select * from users where username='${username}'
+    select * from users where username=${escape(username)}
   `;
   return exec(sql).then(rows => {
     let row = rows[0];
@@ -20,10 +21,11 @@ function check(username) {
 }
 
 function registry({ username, password, realname }) {
-  // 这里需要做一些escape 防止sql注入
-  // 暂时简单得写
+  username = escape(username);
+  password = escape(password);
+  realname = escape(realname);
   let sql = `
-    insert into users (username,\`password\`,realname) values('${username}','${password}','${realname}')
+    insert into users (username,\`password\`,realname) values(${username},${password},${realname})
   `;
   return exec(sql);
 }
