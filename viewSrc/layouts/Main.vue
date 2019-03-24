@@ -19,7 +19,7 @@
         <template v-if="!username">
           <router-link class="fc-link-white" :to="{name:'login'}">登录</router-link>
           <span class="mx-2">|</span>
-          <router-link class="fc-link-white" :to="{name:'login'}">注册</router-link>
+          <router-link class="fc-link-white" :to="{name:'registry'}">注册</router-link>
         </template>
         <template v-else>
           <router-link class="fc-link-white mr-3" :to="{name:'edit',params:{type:'create'}}">
@@ -29,7 +29,11 @@
             <AIcon name="user"/>
             <span>{{realname}}</span>
             <ul slot="popover" class="fc-regular px-2 py-2">
-              <li style="white-space:nowrap;" @click="logout">
+              <router-link tag="li" class="popover-list-item" :to="{name:'admin'}">
+                <AIcon name="read"/>
+                <span style="ml-1">博客管理</span>
+              </router-link>
+              <li class="popover-list-item" @click="logout">
                 <AIcon name="logout"/>
                 <span style="ml-1">登出</span>
               </li>
@@ -112,4 +116,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../variables.scss";
+.popover-list-item {
+  white-space: nowrap;
+  line-height: 30px;
+  border-bottom: 1px solid $border;
+}
 </style>

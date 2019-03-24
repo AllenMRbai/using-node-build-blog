@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="a-notification-list">
+    <div class="a-notification-list" style="z-index:9999">
       <ANotify @close="closeNotify" v-for="(nt,id) of notifys" :key="id" v-bind="nt" :id="id"></ANotify>
     </div>
     <ADialog @close="closeDialog" v-for="(dl,id) of dialogs" :key="id" v-bind="dl" :id="id"></ADialog>

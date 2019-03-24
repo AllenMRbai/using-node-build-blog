@@ -1,16 +1,22 @@
 import Main from "@/layouts/Main";
 import Doc from "@/layouts/Doc";
-import Login from "@/pages/Login";
+import Blogs from "@/pages/Blogs";
 
 export default [
   {
     path: "/",
-    redirect: "/login"
+    redirect: "/main/blogs"
   },
   {
     path: "/login",
     name: "login",
-    component: Login
+    component: () => import(/* webpackChunkName:"Login" */ "@/pages/Login")
+  },
+  {
+    path: "/registry",
+    name: "registry",
+    component: () =>
+      import(/* webpackChunkName:"Registry" */ "@/pages/Registry")
   },
   {
     path: "/main",
@@ -24,7 +30,7 @@ export default [
       {
         path: "blogs",
         name: "blogs",
-        component: () => import(/* webpackChunkName:"Blogs" */ "@/pages/Blogs")
+        component: Blogs
       },
       {
         path: "detail/:id",
@@ -33,7 +39,7 @@ export default [
           import(/* webpackChunkName:"Detail" */ "@/pages/Detail")
       },
       {
-        path: "edit/:type", // create update
+        path: "edit/:type", //pramas: "create" "update"
         name: "edit",
         component: () => import(/* webpackChunkName:"Edit" */ "@/pages/Edit")
       }

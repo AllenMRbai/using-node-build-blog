@@ -9,7 +9,7 @@ let { SuccessModel, ErrorModel } = require("../model/resModel");
 
 // 验证是否登录
 function loginCheck(req) {
-  if (!req.session.username) return new ErrorModel("尚未登录");
+  if (!req.session.username) return Promise.resolve(new ErrorModel("尚未登录"));
 }
 
 let handleBlogRouter = (req, res) => {
@@ -57,7 +57,7 @@ let handleBlogRouter = (req, res) => {
     let loginResult = loginCheck(req);
     if (loginResult) return loginResult;
 
-    req.body.author = req.session.username;
+    // req.body.author = req.session.username;
     let { id, author } = req.body;
     return delBlog(id, author).then(data => {
       if (data.affectedRows == 1) return new SuccessModel("删除成功");
