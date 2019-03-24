@@ -2,6 +2,7 @@ const qs = require("querystring");
 const handleBlogRouter = require("./src/router/blog");
 const handleUserRouter = require("./src/router/user");
 const { get, set } = require("./src/db/redis");
+const { access } = require("./src/util/log");
 
 // 获取POST请求体内的json数据
 function getPostData(req) {
@@ -31,8 +32,12 @@ function expireTime() {
 }
 
 function serverHandler(req, res) {
-  // let method = req.method;
-  // let url = req.url;
+  access(
+    `${new Date()} -- ${req.method} -- ${req.url} -- ${
+      req.headers["user-agent"]
+    }`
+  );
+
   let [path, queryString] = req.url.split("?");
   let query = qs.parse(queryString);
   req.path = path;
