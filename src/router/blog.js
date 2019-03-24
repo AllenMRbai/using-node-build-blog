@@ -6,6 +6,7 @@ let {
   delBlog
 } = require("../controller/blog");
 let { SuccessModel, ErrorModel } = require("../model/resModel");
+const xss = require("xss");
 
 // 验证是否登录
 function loginCheck(req) {
@@ -33,6 +34,9 @@ let handleBlogRouter = (req, res) => {
     let { title, content, author } = req.body;
     if (!title || !content || !author)
       return Promise.resolve(new ErrorModel("必填项不能为空"));
+
+    title = xss(title);
+    content = xss(content);
     return newBlog({ title, content, author }).then(data => {
       if (data.affectedRows == 1)
         return new SuccessModel({ id: data.insertId });
@@ -46,6 +50,9 @@ let handleBlogRouter = (req, res) => {
 
     let { title, content, author, id } = req.body;
     if (!id) return Promise.resolve(new ErrorModel("id不能为空"));
+
+    title = xss(title);
+    content = xss(content);
     return updateBlog({ title, content, author, id }).then(data => {
       console.log(data);
       if (data.affectedRows == 1) return new SuccessModel("更新成功");

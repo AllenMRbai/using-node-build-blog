@@ -1,6 +1,7 @@
 const { login, check, registry } = require("../controller/user");
 const { SuccessModel, ErrorModel } = require("../model/resModel");
 const { set } = require("../db/redis");
+const xss = require("xss");
 
 let handleUserRouter = (req, res) => {
   let method = req.method;
@@ -46,6 +47,8 @@ let handleUserRouter = (req, res) => {
     if (!username || !password || !realname)
       return Promise.resolve(new ErrorModel("必填项不能为空"));
 
+    username = xss(username);
+    realname = xss(realname);
     return check(username)
       .then(data => {
         return registry({ username, password, realname });
