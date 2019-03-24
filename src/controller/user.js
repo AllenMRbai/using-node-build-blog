@@ -1,9 +1,10 @@
 const { exec } = require("../db/mysql");
 const { escape } = require("mysql");
+const { genPassword } = require("../util/cryp");
 
 function login(username, password) {
   username = escape(username);
-  password = escape(password);
+  password = escape(genPassword(password));
 
   let sql = `select username,realname from users where username=${username} and password=${password}`;
   return exec(sql).then(rows => rows[0] || {});
@@ -22,7 +23,7 @@ function check(username) {
 
 function registry({ username, password, realname }) {
   username = escape(username);
-  password = escape(password);
+  password = escape(genPassword(password));
   realname = escape(realname);
   let sql = `
     insert into users (username,\`password\`,realname) values(${username},${password},${realname})
