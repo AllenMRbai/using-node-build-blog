@@ -8,7 +8,8 @@ function getPostData(req) {
   return new Promise((resolve, reject) => {
     if (req.method !== "POST") return resolve({});
 
-    if (req.headers["content-type"] !== "application/json") return resolve({});
+    if (req.headers["content-type"].indexOf("application/json") === -1)
+      return resolve({});
 
     let result = "";
     req.on("data", chunk => {
@@ -93,7 +94,6 @@ function serverHandler(req, res) {
     // 将POST请求body上的json解析为js对象，并赋值给req.body
     .then(body => {
       req.body = body;
-
       let result;
 
       result = handleBlogRouter(req, res);

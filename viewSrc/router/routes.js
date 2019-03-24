@@ -33,7 +33,7 @@ export default [
           import(/* webpackChunkName:"Detail" */ "@/pages/Detail")
       },
       {
-        path: "edit",
+        path: "edit/:type", // create update
         name: "edit",
         component: () => import(/* webpackChunkName:"Edit" */ "@/pages/Edit")
       }

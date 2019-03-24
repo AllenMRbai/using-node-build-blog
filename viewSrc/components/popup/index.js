@@ -1,4 +1,5 @@
 import APopup from "./APopup";
+import APopover from "./APopover";
 
 let rootDomId = "a-popup-root-dom";
 
@@ -20,4 +21,4 @@ let alert = instance.alert.bind(instance);
 let confirm = instance.confirm.bind(instance);
 let notify = instance.notify.bind(instance);
 
-export { alert, confirm, notify };
+export { alert, confirm, notify, APopover };

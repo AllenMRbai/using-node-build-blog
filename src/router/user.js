@@ -7,7 +7,6 @@ let handleUserRouter = (req, res) => {
 
   if (method === "POST" && req.path === "/api/user/login") {
     let { username, password } = req.body;
-
     if (!username || !password)
       return Promise.resolve(new ErrorModel("必填项不能为空"));
 
@@ -26,11 +25,17 @@ let handleUserRouter = (req, res) => {
     });
   }
 
-  // if (method === "GET" && req.path === "/api/user/login-test") {
-  //   if (req.session.username)
-  //     return Promise.resolve(new SuccessModel({ ...req.session }));
-  //   else return Promise.resolve(new ErrorModel("尚未登录"));
-  // }
+  if (method === "GET" && req.path === "/api/user/info") {
+    if (req.session.username)
+      return Promise.resolve(new SuccessModel({ ...req.session }));
+    else return Promise.resolve(new ErrorModel("尚未登录"));
+  }
+
+  if (method === "GET" && req.path === "/api/user/logout") {
+    req.session = {};
+    set(req.sessionId, req.session);
+    return Promise.resolve(new SuccessModel());
+  }
 };
 
 module.exports = handleUserRouter;
